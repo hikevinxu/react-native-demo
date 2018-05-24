@@ -15,6 +15,7 @@ var CURRENT_WIN_WIDTH = Dimensions.get('window').width;
 var CURRENT_WIN_HEIGHT = Dimensions.get('window').height;
 // alert(Dimensions.get('window').width);
 
+
 // 图片公共地址头
 const IMG_BASE_URL = 'http://statics.zhuishushenqi.com'
 

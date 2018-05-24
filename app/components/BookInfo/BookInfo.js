@@ -18,6 +18,7 @@ import {
 import {
     StackNavigator,
 } from 'react-navigation';
+import Toast, {DURATION} from 'react-native-easy-toast'
 import { IMG_BASE_URL } from '../../config/global.js'
 
 
@@ -31,15 +32,55 @@ export default class BookInfo extends Component {
             paddingRight: 5,
             color: '#333',
         },
-        bookIntro: true
+        bookIntro: true,
+        hasSaveBook: false
       };
       this.followUp = this.followUp.bind(this);
       this.startReading = this.startReading.bind(this);
       this.viewAll = this.viewAll.bind(this);
     }
 
-    followUp(){
-        Alert.alert('msg',"123");
+    componentDidMount(){
+        const bookInfo = this.props.bookData;
+        storage.load({
+            key: 'aaaa',
+            id: bookInfo._id
+          }).then(ret => {
+            this.setState({
+                hasSaveBook: true
+            })
+          }).catch(err => {
+            this.setState({
+                hasSaveBook: false
+            })
+        })                
+    }
+
+    followUp(id){
+        this.setState({
+            hasSaveBook: !this.state.hasSaveBook
+        },function(){
+            if(this.state.hasSaveBook){
+                storage.save({
+                    key: 'aaaa',  // 注意:请不要在key中使用_下划线符号!
+                    id: id,
+                    data: { 
+                      state: '1'
+                    },
+                    // 如果不指定过期时间，则会使用defaultExpires参数
+                    // 如果设为null，则永不过期
+                    expires: 1000 * 300
+                });
+                this.refs.toast.show('已收藏');
+            }else{
+                // 删除单个数据
+                storage.remove({
+                    key: 'aaaa',
+                    id: id
+                });
+                this.refs.toast.show('已取消收藏');
+            }
+        })
     }
 
     startReading(bookInfo){
@@ -79,7 +120,7 @@ export default class BookInfo extends Component {
                 </View>
                 <View  style={styles.bookDetail}>
                     <View style={styles.bookButton}>
-                        <Button title="+追更新" color="#2196F3" onPress={() => this.followUp()}/>
+                        <Button title={this.state.hasSaveBook ? '-不追了':'+追更新'} color={this.state.hasSaveBook ? "#666":"#2196F3"} onPress={(id) => this.followUp(bookInfo._id)}/>
                     </View>
                     <View style={styles.bookButton}>
                         <Button title="开始阅读" color="#2196F3" onPress={(id) => this.startReading(bookInfo)}/>
@@ -106,6 +147,16 @@ export default class BookInfo extends Component {
             :
             null
         }
+            <Toast
+                ref="toast"
+                style={{backgroundColor:'#000'}}
+                position='bottom'
+                positionValue={150}
+                fadeInDuration={500}
+                fadeOutDuration={500}
+                opacity={0.8}
+                textStyle={{color:'#fff'}}
+              />
         </View>
     );
   }

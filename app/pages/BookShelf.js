@@ -20,18 +20,28 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 class BookShelfScreen extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = {
+      saveBookIds: []
+    }
+
   }
-  
-  // t = () => {
-  //   console.log(this.props)
-  //   this.props.navigation.navigate("Search")
-  // }
+
+  componentDidMount(){
+    // 获取某个key下的所有id(仅key-id数据)
+    storage.getIdsForKey('aaaa').then(ids => {
+      this.setState({
+        saveBookIds: ids
+      },function(){
+        
+      })
+    });
+  }
 
   render() {
     return (
       <View>
-        <Text>home</Text>
+        <Text>{this.state.saveBookIds}</Text>
       </View>
     );
   }
