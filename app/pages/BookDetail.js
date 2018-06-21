@@ -12,7 +12,8 @@ import {
   Text,
   View,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  DeviceEventEmitter
 } from 'react-native';
 import api from '../config/api.js'
 import { BookInfo, BookReview, BookRecommendation } from '../components/index.js'

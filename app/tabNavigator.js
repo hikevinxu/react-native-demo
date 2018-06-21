@@ -36,7 +36,7 @@ const TabRouteConfigs = {
             title: '社区',
             drawerLabel: 'Community',
             tabBarIcon: ({focused,tintColor}) => (
-                <Icon name={'ios-chatboxes-outline'} size={25} color={focused ? '#DD2219' : '#333'}/> 
+                <Icon name={'ios-chatboxes-outline'} size={25} color={focused ? '#DD2219' : '#333'}/>
             )
         })
     },
@@ -56,8 +56,10 @@ const TabNavigatorConfigs = {
     initialRouteName: 'BookShelf',
     tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',
-    lazy: true,
-    swipeEnabled: true,
+    lazy: false,
+    swipeEnabled: false,
+    animationEnabled: true,
+    backBehavior: 'none',  // 按 back 键是否跳转到第一个Tab(首页)， none 为不跳转
     tabBarOptions: {
         activeTintColor: '#DD2219',
         activeBackgroundColor: '#fff',

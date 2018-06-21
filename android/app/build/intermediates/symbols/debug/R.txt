@@ -456,7 +456,16 @@ int drawable abc_textfield_default_mtrl_alpha 0x7f02003a
 int drawable abc_textfield_search_activated_mtrl_alpha 0x7f02003b
 int drawable abc_textfield_search_default_mtrl_alpha 0x7f02003c
 int drawable abc_textfield_search_material 0x7f02003d
-int drawable notification_template_icon_bg 0x7f02003e
+int drawable app_common_images_2 0x7f02003e
+int drawable app_common_images_myaccount 0x7f02003f
+int drawable app_common_images_mybaodan1 0x7f020040
+int drawable app_common_images_mytixian 0x7f020041
+int drawable app_common_images_myzhanghu 0x7f020042
+int drawable app_common_images_piechart 0x7f020043
+int drawable app_common_images_read_bg 0x7f020044
+int drawable node_modules_reactnavigation_src_views_assets_backicon 0x7f020045
+int drawable node_modules_reactnavigation_src_views_assets_backiconmask 0x7f020046
+int drawable notification_template_icon_bg 0x7f020047
 int id action0 0x7f0d0058
 int id action_bar 0x7f0d0048
 int id action_bar_activity_content 0x7f0d0000

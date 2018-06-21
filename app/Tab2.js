@@ -25,12 +25,11 @@ const BookShelfNav = StackNavigator({
           fontSize: 16
         },
         headerRight: (
-          <Icon 
+          <Icon
             name={'ios-search-outline'}
             style={{color: '#fff', marginRight: 20}}
-            size={25} 
-            onPress={() => { navigation.navigate('Search') }}
-            />
+            size={25}
+            onPress={() => { navigation.navigate('Search') }}/>
         ),
         drawerLabel: 'BookShelf',
         tabBarIcon: ({focused,tintColor}) => (
@@ -55,10 +54,10 @@ const DiscoveryNav = StackNavigator({
             fontSize: 16
           },
         //   headerRight: (
-        //     <Icon 
+        //     <Icon
         //       name={'ios-search-outline'}
         //       style={{color: '#fff', marginRight: 20}}
-        //       size={25} 
+        //       size={25}
         //       onPress={() => { navigation.navigate('Search') }}
         //       />
         //   ),
@@ -85,10 +84,10 @@ const CommunityNav = StackNavigator({
             fontSize: 16
           },
         //   headerRight: (
-        //     <Icon 
+        //     <Icon
         //       name={'ios-search-outline'}
         //       style={{color: '#fff', marginRight: 20}}
-        //       size={25} 
+        //       size={25}
         //       onPress={() => { navigation.navigate('Search') }}
         //       />
         //   ),
@@ -115,10 +114,10 @@ const MineNav = StackNavigator({
           fontSize: 16
         },
         // headerRight: (
-        //   <Icon 
+        //   <Icon
         //     name={'ios-search-outline'}
         //     style={{color: '#fff', marginRight: 20}}
-        //     size={25} 
+        //     size={25}
         //     onPress={() => { navigation.navigate('Search') }}
         //     />
         // ),

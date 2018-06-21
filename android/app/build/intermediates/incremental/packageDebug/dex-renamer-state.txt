@@ -1,4 +1,4 @@
-#Fri Mar 09 16:52:19 GMT+08:00 2018
-base.0=D\:\\jiexin\\react-native\\demo\\FourthDemo\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+#Fri May 25 13:52:34 GMT+08:00 2018
+base.0=D\:\\jiexin\\react-native\\demo\\zhuShuShenQi\\react-native-demo\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
 renamed.0=classes.dex
-file.0=D\:\\jiexin\\react-native\\demo\\FourthDemo\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
+file.0=D\:\\jiexin\\react-native\\demo\\zhuShuShenQi\\react-native-demo\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

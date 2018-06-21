@@ -236,7 +236,7 @@ export default class SearchScreen extends Component {
 
     render() {
         return (
-        <View>
+        <ScrollView style={styles.viewStyle}>
             {this.state.searchData ?
                 <AnimatedFlatList
                 data={this.state.searchData}
@@ -274,12 +274,17 @@ export default class SearchScreen extends Component {
                     />
                 </ScrollView>
             }
-        </View>
+        </ScrollView>
         );
     }
 }
 
 const styles = StyleSheet.create({
+  viewStyle: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#fff"
+  },
   tagsTop: {
     marginLeft: 10,
     marginRight: 10,

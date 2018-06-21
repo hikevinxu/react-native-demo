@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   FlatList
 } from 'react-native';
 import {
@@ -70,16 +71,20 @@ export default class DiscoveryScreen extends Component {
 
   render() {
     return (
-      <View>
+      <ScrollView style={styles.viewStyle}>
         <FlatList
         data={this.state.category}
         keyExtractor = {this._extraUniqueKey}
         renderItem={({item}) => this.renderCategoryList(item)} />
-      </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-
+  viewStyle: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#fff"
+  }
 });

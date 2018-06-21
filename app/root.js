@@ -56,12 +56,11 @@ const RootStack = StackNavigator(
           fontSize: 16
         },
         headerRight: (
-          <Icon 
+          <Icon
             name={'ios-search-outline'}
             style={{color: '#fff', marginRight: 20}}
-            size={25} 
-            onPress={() => { navigation.navigate('Search') }}
-            />
+            size={25}
+            onPress={() => { navigation.navigate('Search') }} />
         ),
       })
       // navigationOptions: {
@@ -89,5 +88,5 @@ export default class Root extends Component {
 
 
 const styles = StyleSheet.create({
- 
+
 });

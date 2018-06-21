@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "D:\\jiexin\\react-native\\demo\\zhuShuShenQi\\react-native-demo\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\app_common_images_read_bg.jpg",
+        "source": "D:\\jiexin\\react-native\\demo\\zhuShuShenQi\\react-native-demo\\android\\app\\src\\main\\res\\drawable-mdpi\\app_common_images_read_bg.jpg"
+    },
+    {
+        "merged": "D:\\jiexin\\react-native\\demo\\zhuShuShenQi\\react-native-demo\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\app_common_images_2.jpg",
+        "source": "D:\\jiexin\\react-native\\demo\\zhuShuShenQi\\react-native-demo\\android\\app\\src\\main\\res\\drawable-mdpi\\app_common_images_2.jpg"
+    }
+]

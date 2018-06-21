@@ -9,19 +9,24 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 
 export default class CommunityScreen extends Component {
   render() {
     return (
-      <View>
+      <ScrollView style={styles.viewStyle}>
         <Text>community</Text>
-      </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  
+  viewStyle: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#fff"
+  }
 });

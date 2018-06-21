@@ -52,7 +52,7 @@ export default class MineScreen extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={styles.viewStyle}>
         <View
         style={{justifyContent: 'space-between',alignItems: 'center'}}>
           <TouchableOpacity
@@ -112,5 +112,9 @@ export default class MineScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-
+  viewStyle: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#fff"
+  }
 });

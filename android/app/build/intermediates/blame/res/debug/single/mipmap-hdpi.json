@@ -4,6 +4,14 @@
         "source": "D:\\jiexin\\react-native\\demo\\FourthDemo\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     },
     {
+        "merged": "D:\\jiexin\\react-native\\demo\\zhuShuShenQi\\react-native-demo\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
+        "source": "D:\\jiexin\\react-native\\demo\\zhuShuShenQi\\react-native-demo\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\jiexin\\react-native\\demo\\zhuShuShenQi\\react-native-demo\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher1.png",
+        "source": "D:\\jiexin\\react-native\\demo\\zhuShuShenQi\\react-native-demo\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher1.png"
+    },
+    {
         "merged": "D:\\jiexin\\react-native\\demo\\FourthDemo\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher1.png",
         "source": "D:\\jiexin\\react-native\\demo\\FourthDemo\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher1.png"
     }
