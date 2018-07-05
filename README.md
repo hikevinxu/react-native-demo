@@ -1,5 +1,16 @@
 # react-native
 
+## 在手机上运行该项目步骤：
+``` shell
+  git clone git@github.com:hikevinxu/react-native-demo.git
+  cd react-native-demo
+  cd android 
+  gradlew clean  # 或者手动删除android里面的build文件夹
+  npm install
+  react-native link  #这里要注意如果重复link会报错
+  react-native run-android  # 运行
+```
+
 ## 调试篇
 
 ###  相关指令
@@ -770,6 +781,350 @@ import Storage from 'react-native-storage';
 
   [realm文档](https://realm.io/docs/javascript/latest)
 
+
+### 轮播图组件
+
+#### 例如： react-native-swiper组件
+
+  可前往 [react-native-swiper 组件github官网](https://github.com/hikevinxu/react-native-swiper) 查看详细教程 <br />
+  可前往 [react-native-swiper 组件简书](https://www.jianshu.com/p/f42b0c13710e) 查看详细教程 <br />
+
+- 1. 安装
+
+``` shell
+  npm i react-native-swiper --save
+```
+
+- 2. 导入
+
+```javascript
+  import Swiper from 'react-native-swiper';
+```
+
+- 3. 使用
+
+```javascript
+  <ScrollView style={styles.viewStyle}>
+    {this.state.showSwiper ? 
+      <Swiper
+        style={styles.swiper}          //样式
+        height={CURRENT_WIN_WIDTH / 700 * 320}     //组件高度
+        loop={true}                    //如果设置为false，那么滑动到最后一张时，再次滑动将不会滑到第一张图片。
+        index={0}
+        autoplay={true}                //自动轮播
+        autoplayTimeout={3}                //每隔4秒切换
+        horizontal={true}              //水平方向，为false可设置为竖直方向
+        paginationStyle={{bottom: 10}} //小圆点的位置：距离底部10px
+        showsButtons={false}           //为false时不显示控制按钮
+        showsPagination={false}       //为false不显示下方圆点
+        dot={<View style={{           //未选中的圆点样式
+            backgroundColor: 'rgba(0,0,0,.2)',
+            width: 18,
+            height: 18,
+            borderRadius: 4,
+            marginLeft: 10,
+            marginRight: 9,
+            marginTop: 9,
+            marginBottom: 9,
+        }}/>}
+        activeDot={<View style={{    //选中的圆点样式
+            backgroundColor: '#007aff',
+            width: 18,
+            height: 18,
+            borderRadius: 4,
+            marginLeft: 10,
+            marginRight: 9,
+            marginTop: 9,
+            marginBottom: 9,
+        }}/>}
+
+      >
+        <TouchableOpacity onPress={() => alert(1)}>
+          <Image source={require('../common/images/bannerone.jpg')} style={styles.img}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => alert(2)}>
+          <Image source={require('../common/images/bannertwo.jpg')} style={styles.img}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => alert(3)}>
+          <Image source={require('../common/images/bannerthree.jpg')} style={styles.img}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => alert(4)}>
+          <Image source={require('../common/images/bannerfour.jpg')} style={styles.img}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => alert(5)}>
+          <Image source={require('../common/images/bannerfive.jpg')} style={styles.img}/>
+        </TouchableOpacity>
+      </Swiper>
+    :
+      <View style={styles.wrapper}>
+          <Image source={require('../common/images/bannerone.jpg')} style={styles.bannerImg} />
+      </View>
+    }
+  </ScrollView>
+```
+
+### 上拉加载，下拉刷新
+
+#### 例如：FlatList实现下拉刷新，上拉加载
+
+  可前往 [FlatList 组件RN官网](https://reactnative.cn/docs/0.51/flatlist.html#content) 查看详细教程 <br />
+  可前往 [FlatList 组件简书](https://www.jianshu.com/p/8646c426c43b) 查看详细教程 <br />
+
+```javascript
+  /**
+   * 上拉加载  下拉刷新demo
+   * https://github.com/facebook/react-native
+   * @flow
+   */
+
+  import React, { Component } from 'react';
+  import {
+    Platform,
+    StyleSheet,
+    Text,
+    View,
+    ScrollView,
+    TouchableOpacity,
+    FlatList,
+    RefreshControl,
+    ActivityIndicator
+  } from 'react-native';
+
+  let count = 20;
+  const base_url = 'https://api.douban.com/v2/book/search?tag=小说&count=20&start='
+
+  export default class DoubanListScreen extends Component {
+
+      constructor(props){
+          super(props);
+          this.state = {
+              start: 0,
+              total: 0,
+              dataArray: [],
+              isLoading: true,
+              //网络请求状态
+              error: false,
+              errorInfo: "",
+              showFoot:0, // 控制foot， 0：隐藏footer  1：已加载完成,没有更多数据   2 ：显示加载中
+              isRefreshing:false,//下拉控制
+          };
+          this.fetchData = this.fetchData.bind(this);
+      }
+
+      componentDidMount(){
+          // alert(456);
+          this.fetchData();
+      }
+
+      fetchData(){
+          fetch(base_url +  this.state.start,{
+              method: "GET"
+          }).then((response) => response.json()).then((res) => {
+              console.log(res);
+              if(res.code === 112){
+                  this.setState({
+                      error: true,
+                      errorInfo: res.msg
+                  });
+                  return;
+              }
+              // alert(res.books.length);
+              let data = res.books;//获取json 数据并存在data数组中
+              let total = res.total;
+              let dataBlob = [];//这是创建该数组，目的放存在key值的数据，就不会报黄灯了
+              data.map(function (item) {
+                  dataBlob.push({
+                      key: item.id,
+                      title: item.title
+                  })
+              });
+              let foot = 0;
+              if(this.state.start >= total){
+                  foot = 1;//listView底部显示没有更多数据了
+              }
+              this.setState({
+                  total: total,
+                  dataArray:this.state.dataArray.concat( dataBlob),
+                  isLoading: false,
+                  showFoot:foot,
+                  isRefreshing:false,
+              },function(){
+                  data = null;//重置为空
+                  dataBlob = null;
+                  total = null;
+              })
+          }).catch((error) => {
+              this.setState({
+                  error: true,
+                  errorInfo: error
+              })
+          })
+      }
+
+      handleRefresh = () => {
+          this.setState({
+              start: 0,
+              showFoot: 0,
+              isRefreshing:true,//tag,下拉刷新中，加载完全，就设置成flase
+              dataArray:[]
+          });
+          this.fetchData()
+      }
+
+      //加载等待页
+      renderLoadingView() {
+          return (
+              <View style={styles.container}>
+                  <ActivityIndicator
+                      animating={true}
+                      color='blue'
+                      size="large"
+                  />
+              </View>
+          );
+      }
+
+      _keyExtractor = (item, index) => index;
+
+      //加载失败view
+      renderErrorView() {
+          return (
+              <View style={styles.container}>
+                  <Text>
+                      {this.state.errorInfo}
+                  </Text>
+              </View>
+          );
+      }
+
+      //返回itemView
+      _renderItemView({item}) {
+          return (
+              <TouchableOpacity style={{paddingBottom: 10}}>
+                  <View style={{height: 80,width: '100%',backgroundColor: '#ffffff'}}>
+                      <Text style={{lineHeight: 80,textAlign: 'center',width: '100%'}}>{item.title}</Text>
+                  </View>
+              </TouchableOpacity>
+          );
+      }
+
+      renderData(){
+          return (
+              <FlatList
+                  style={{backgroundColor: "#f6f6f6"}}
+                  data={this.state.dataArray}
+                  renderItem={this._renderItemView}
+                  ListFooterComponent={this._renderFooter.bind(this)}
+                  onEndReached={() => this._onEndReached()}
+                  onEndReachedThreshold={1}
+                  keyExtractor={this._keyExtractor}
+                  //为刷新设置颜色
+                  refreshControl={
+                      <RefreshControl
+                          refreshing={this.state.isRefreshing}
+                          onRefresh={this.handleRefresh.bind(this)}//因为涉及到this.state
+                          colors={['#ff0000', '#00ff00','#0000ff','#3ad564']}
+                          progressBackgroundColor="#ffffff"
+                      />
+                  }
+              />
+          )
+      }
+
+      _renderFooter(){
+          if (this.state.showFoot === 1) {
+              alert(this.state.dataArray.length);
+              return (
+                  <View style={{height:30,alignItems:'center',justifyContent:'flex-start',}}>
+                      <Text style={{color:'#999999',fontSize:14,marginTop:5,marginBottom:5,}}>
+                          没有更多数据了
+                      </Text>
+                  </View>
+              );
+          } else if(this.state.showFoot === 2) {
+              return (
+                  <View style={styles.footer}>
+                      <ActivityIndicator />
+                      <Text>正在加载更多数据...</Text>
+                  </View>
+              );
+          } else if(this.state.showFoot === 0){
+              return (
+                  <View style={styles.footer}>
+                      <Text></Text>
+                  </View>
+              );
+          }
+      }
+
+      _onEndReached(){
+          // alert(this.state.start);
+          //如果是正在加载中或没有更多数据了，则返回
+          if(this.state.showFoot != 0 ){
+              return ;
+          }
+          //如果当前页大于或等于总页数，那就是到最后一页了，返回
+          if((this.state.start!=0) && (this.state.start>=this.state.total)){
+              return;
+          } else {
+              this.state.start += 20;
+          }
+          //底部显示正在加载更多数据
+          this.setState({showFoot:2});
+          //获取数据，在componentDidMount()已经请求过数据了
+          if (this.state.start > 0)
+          {
+              this.fetchData();
+          }
+      }
+
+      render() {
+          //第一次加载等待的view
+          if (this.state.isLoading && !this.state.error) {
+              return this.renderLoadingView();
+          } else if (this.state.error) {
+              //请求失败view
+              return this.renderErrorView();
+          }
+          //加载数据
+          return this.renderData();
+      }
+
+  }
+
+  const styles = StyleSheet.create({
+      container: {
+          padding:10,
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#F5FCFF',
+      },
+      title: {
+          marginTop:8,
+          marginLeft:8,
+          marginRight:8,
+          fontSize: 15,
+          color: '#ffa700',
+      },
+      footer:{
+          flexDirection:'row',
+          height:24,
+          justifyContent:'center',
+          alignItems:'center'
+      },
+      content: {
+          marginBottom:8,
+          marginLeft:8,
+          marginRight:8,
+          fontSize: 14,
+          color: 'black',
+      }
+  });
+
+```
+
 ## Warning警告篇
 
 ### 'VirtualizedList: missing keys for items, make sure to specify a key property on each item or provide a custom keyExtractor.'
@@ -792,3 +1147,42 @@ import Storage from 'react-native-storage';
   可不必管他
 ```
 
+## Error (报错篇)
+
+### react-native  link 完之后报错： Could not install the app on the device, read the error above for details. Make sure you have an Android emulator running or a device connected and have set up your Android development environment: https://facebook.github.io/react-native/docs/getting-star
+
+``` shell
+  ## 解决办法：
+  ## 1.进入android目录执行 gradlew clean
+  cd android
+  gradlew clean
+  ## 回到项目根目录，执行run-android
+  cd ..
+  react-native run-android
+```
+
+### Native module VectorIconsModule tried to override VectorIconsModule for module name RNVectorIconsModule. If this was your intention, set canOverrideExistingModule=true
+
+``` shell
+  ## 解决办法
+  ## 1.进入android目录执行 找到MainApplication.java(android/app/src/main/java/com)，里面有有重复的引用，把重复的部分删除就行了
+```
+``` javascript
+  import com.oblador.vectoricons.VectorIconsPackage;// 删除
+  ...
+  public class MainApplication extends Application implements ReactApplication {
+      ...
+      new VectorIconsPackage(),
+      new VectorIconsPackage() // 删除
+  }
+```
+
+### unable to load script from assets 和could not connect to development server.
+
+``` shell
+  # 1，在 android/app/src/main 目录下创建一个 assets空文件夹
+  # 2. 在项目根目录运行
+  react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+  # 注意了，是编译index.js而不是index.android.js，因为react-native新版本已经没有index.android.js和index.ios.js两个文件了，只有一个index.js文件,所以要编译index.js, 会发现 assets文件夹下多出两个文件
+  # 3，重新react-native run-android
+```

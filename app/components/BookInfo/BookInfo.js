@@ -69,9 +69,10 @@ export default class BookInfo extends Component {
                     // 如果不指定过期时间，则会使用defaultExpires参数
                     // 如果设为null，则永不过期
                     expires: null
+                }).then(res => {
+                    this.refs.toast.show('已收藏');
+                    DeviceEventEmitter.emit('addBookShelf', '添加收藏');
                 });
-                this.refs.toast.show('已收藏');
-                DeviceEventEmitter.emit('addBookShelf', '添加收藏');
             }else{
                 // 删除单个数据
                 storage.remove({

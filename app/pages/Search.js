@@ -193,7 +193,11 @@ export default class SearchScreen extends Component {
     }
 
     _onload(){
-        alert(123);
+        // alert(123);
+        // onEndReached={
+        //     this._onload
+        // }
+        // onEndReachedThreshold={0.01}
         let nowData = [];
         api.getBookListBySearchName({
             query: this.state.name,
@@ -244,13 +248,8 @@ export default class SearchScreen extends Component {
                 renderItem={({item}) => this.renderBookList(item)}
                 ListHeaderComponent={this._header}
                 ListFooterComponent={this._footer}
-                ItemSeparatorComponent={this._separator}
                 onRefresh={this.refreshing}
                 refreshing={this.state.refreshing}
-                onEndReached={
-                    this._onload
-                }
-                onEndReachedThreshold={0.1}
                 viewabilityConfig={VIEWABILITY_CONFIG}
                 />
             :

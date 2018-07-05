@@ -8,6 +8,7 @@ import LeaderboardScreen from './Leaderboard.js'
 import BookListScreen from './BookList.js'
 import BookDetailScreen from './BookDetail.js'
 import BookContentScreen from './BookContent.js'
+import DoubanListScreen from './DoubanList.js'
 export {
     LoginScreen,
     BookShelfScreen,
@@ -18,5 +19,6 @@ export {
     LeaderboardScreen,
     BookListScreen,
     BookDetailScreen,
-    BookContentScreen
+    BookContentScreen,
+    DoubanListScreen
 }

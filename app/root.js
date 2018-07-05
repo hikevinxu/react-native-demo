@@ -13,7 +13,7 @@ import {
 import { StackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { BookShelfScreen, LoginScreen, DiscoveryScreen, CommunityScreen, MineScreen, SearchScreen, LeaderboardScreen, BookListScreen, BookDetailScreen, BookContentScreen } from './pages/index.js'
+import { BookShelfScreen, LoginScreen, DiscoveryScreen, CommunityScreen, MineScreen, SearchScreen, LeaderboardScreen, BookListScreen, BookDetailScreen, BookContentScreen, DoubanListScreen } from './pages/index.js'
 import TabNavPageScreen from './tabNavigator.js'
 
 
@@ -40,6 +40,9 @@ const RootStack = StackNavigator(
       BookContent: {
         screen: BookContentScreen,
       },
+      DoubanList: {
+        screen: DoubanListScreen
+      }
     },
     {
       initialRouteName: 'TabNavPage',
